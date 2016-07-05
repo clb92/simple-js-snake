@@ -20,6 +20,14 @@ var Game = function() {
 		width: 0,
 		height: 0
 	};
+	this.sounds = {
+		food: new Audio("audio/food.wav"),
+		bonus: new Audio("audio/bonus.wav"),
+		death: new Audio("audio/death3.wav"),
+		speedUp: new Audio("audio/speedUp.wav"),
+		speedDown: new Audio("audio/speedDown.wav"),
+		pause: new Audio("audio/pause.wav")
+	}
 	this.canvas = new Canvas(this, "gameCanvas");
 	this.initGrid();
 	this.snake = new Snake(this);
@@ -77,6 +85,7 @@ Game.prototype.update = function() {
 
 Game.prototype.togglePause = function() {
 	this.paused = (this.paused ? false : true);
+	this.sounds.pause.play();
 	if (this.paused) {
 		//clearInterval(this.gameLoop);
 		this.canvas.canvas.style.filter = "blur(40px)";
@@ -95,21 +104,26 @@ Game.prototype.applyEffect = function(effect) {
 	console.log("Effect pickup: " + effect);
 	switch (effect) {
 		case ('food'):
+			this.sounds.food.play();
 			this.score++;
 			this.snake.embiggen(1);
 			break;
 		case ('death'):
+			this.sounds.death.play();
 			this.end();
 			break;
 		case ('faster'):
+			this.sounds.speedUp.play();
 			this.speedModifier = 1.7;
 			this.effects.speedChange = 180;
 			break;
 		case ('slower'):
+			this.sounds.speedDown.play();
 			this.speedModifier = .6;
 			this.effects.speedChange = 100;
 			break;
 		case ('bonus'):
+			this.sounds.bonus.play();
 			this.score = this.score + 15;
 			this.snake.embiggen(6);
 			break;
