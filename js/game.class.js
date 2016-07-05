@@ -3,6 +3,7 @@
  */
 var Game = function() {
 	this.gameover = false;
+	this.started = false;
 	this.paused = true;
 	this.gameLoop = null;
 	this.gameLoopCount = 0;
@@ -32,6 +33,7 @@ Game.prototype.initGrid = function() {
 
 Game.prototype.start = function() {
 	this.paused = false;
+	this.started = true;
 	/* var parent = this;
 	this.gameLoop = setInterval(function(){
 		parent.gameLoopCount++;
@@ -70,6 +72,7 @@ Game.prototype.start = function() {
 
 Game.prototype.update = function() {
 	this.snake.move();
+	this.resources.checkDropExpiration();
 }
 
 Game.prototype.togglePause = function() {
@@ -82,7 +85,9 @@ Game.prototype.togglePause = function() {
 	} else {
 		this.canvas.canvas.style.filter = "blur(0px)";
 		document.getElementById("popup-text").setAttribute("class", "hidden");
-		this.start();
+		if (!this.started) {
+			this.start();
+		}
 	}
 }
 
@@ -101,7 +106,7 @@ Game.prototype.applyEffect = function(effect) {
 		case ('faster'):
 			console.log("faster");
 			this.speedModifier = 1.7;
-			this.effects.speedChange = 150;
+			this.effects.speedChange = 180;
 			break;
 		case ('slower'):
 			console.log("slower");
@@ -111,7 +116,7 @@ Game.prototype.applyEffect = function(effect) {
 		case ('bonus'):
 			console.log("bonus");
 			this.score = this.score + 15;
-			this.snake.embiggen(5);
+			this.snake.embiggen(6);
 			break;
 	}
 	console.log(this);

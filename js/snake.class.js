@@ -72,6 +72,7 @@ Snake.prototype.move = function() {
 		var effect = this.game.resources.checkLocation(newX, newY);
 		if (effect !== null) {
 			this.game.applyEffect(effect);
+			this.game.resources.removeDrop(newX, newY);
 		}
 		
 		for (var i = 0; i < this.locations.length; i++) {
