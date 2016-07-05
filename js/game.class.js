@@ -95,31 +95,25 @@ Game.prototype.applyEffect = function(effect) {
 	console.log("Effect pickup: " + effect);
 	switch (effect) {
 		case ('food'):
-			console.log("food");
 			this.score++;
 			this.snake.embiggen(1);
 			break;
 		case ('death'):
-			console.log("death");
 			this.end();
 			break;
 		case ('faster'):
-			console.log("faster");
 			this.speedModifier = 1.7;
 			this.effects.speedChange = 180;
 			break;
 		case ('slower'):
-			console.log("slower");
 			this.speedModifier = .6;
 			this.effects.speedChange = 100;
 			break;
 		case ('bonus'):
-			console.log("bonus");
 			this.score = this.score + 15;
 			this.snake.embiggen(6);
 			break;
 	}
-	console.log(this);
 }
 
 Game.prototype.end = function() {

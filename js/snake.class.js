@@ -51,22 +51,20 @@ Snake.prototype.move = function() {
 				var newX = this.locations[0][0] + 1;
 				var newY = this.locations[0][1];
 				break;
-			default:
-				break;
 		}
 		this.previousDirection = this.nextDirection;
 		
-		if (newX > this.game.canvas.width) {
-			newX = 1;
+		if (newX >= this.game.grid.width) {
+			newX = 0;
 		}
-		if (newX < this.game.canvas.width) {
-			newX = this.game.canvas.width - 1;
+		if (newX < 0) {
+			newX = this.game.grid.width - 1;
 		}
-		if (newY > this.game.canvas.height) {
-			newY = 1;
+		if (newY >= this.game.grid.height) {
+			newY = 0;
 		}
-		if (newY < this.game.canvas.height) {
-			newY = this.game.canvas.height - 1;
+		if (newY < 0) {
+			newY = this.game.grid.height - 1;
 		}
 		
 		var effect = this.game.resources.checkLocation(newX, newY);
