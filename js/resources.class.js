@@ -92,7 +92,7 @@ Resources.prototype.despawnDrop = function(i) {
 	this.locations.splice(i, 1);
 }
 
-Resources.prototype.removeDrop = function(x, y, despawn = false) {
+Resources.prototype.removeDrop = function(x, y) {
 	for (var i = 0; i < this.locations.length; i++) {
 		if (this.locations[i][0] === x) {
 			for (var i = 0; i < this.locations.length; i++) {

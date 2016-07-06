@@ -13,7 +13,7 @@ var Snake = function(game) {
 	}
 }
 
-Snake.prototype.changeDirection = function(direction = '') {
+Snake.prototype.changeDirection = function(direction) {
 	if (direction !== '') {
 		switch (this.previousDirection) {
 			case ('up'):
@@ -91,6 +91,7 @@ Snake.prototype.move = function() {
 		}
 		
 		this.locations.unshift([newX, newY]);
+		
 		this.game.canvas.setTile('snake', this.locations[0][0], this.locations[0][1]);
 	}
 }
