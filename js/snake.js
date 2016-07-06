@@ -1,6 +1,7 @@
 var init = function () {
 	var game = new Game();
 	game.canvas.canvas.style.filter = "blur(40px)";
+	game.canvas.canvas.style.WebkitFilter = "blur(40px)";
 	game.canvas.drawAll();
 	
 	setTimeout(function(){

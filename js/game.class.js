@@ -26,7 +26,14 @@ var Game = function() {
 		death: new Audio("audio/death3.wav"),
 		speedUp: new Audio("audio/speedUp.wav"),
 		speedDown: new Audio("audio/speedDown.wav"),
-		pause: new Audio("audio/pause.wav")
+		pause: new Audio("audio/pause.wav"),
+		start: new Audio("audio/test.wav")
+	}
+	for (var sound in this.sounds) {
+		if (this.sounds.hasOwnProperty(sound)) {
+			this.sounds[sound].load();
+			console.log('Loaded: ' + this.sounds[sound].src);
+		}
 	}
 	this.canvas = new Canvas(this, "gameCanvas");
 	this.initGrid();
@@ -40,6 +47,7 @@ Game.prototype.initGrid = function() {
 }
 
 Game.prototype.start = function() {
+	//this.sounds.start.play();
 	this.paused = false;
 	this.started = true;
 	/* var parent = this;
@@ -80,6 +88,7 @@ Game.prototype.start = function() {
 
 Game.prototype.update = function() {
 	this.snake.move();
+	this.writeScore();
 	this.resources.checkDropExpiration();
 }
 
@@ -89,10 +98,12 @@ Game.prototype.togglePause = function() {
 	if (this.paused) {
 		//clearInterval(this.gameLoop);
 		this.canvas.canvas.style.filter = "blur(40px)";
+		this.canvas.canvas.style.WebkitFilter = "blur(40px)";
 		document.getElementById("popup-text").textContent = "Paused!";
 		document.getElementById("popup-text").removeAttribute("class");
 	} else {
 		this.canvas.canvas.style.filter = "blur(0px)";
+		this.canvas.canvas.style.WebkitFilter = "blur(0px)";
 		document.getElementById("popup-text").setAttribute("class", "hidden");
 		if (!this.started) {
 			this.start();
@@ -109,7 +120,6 @@ Game.prototype.applyEffect = function(effect) {
 			this.snake.embiggen(1);
 			break;
 		case ('death'):
-			this.sounds.death.play();
 			this.end();
 			break;
 		case ('faster'):
@@ -130,11 +140,21 @@ Game.prototype.applyEffect = function(effect) {
 	}
 }
 
+Game.prototype.writeScore = function() {
+	document.getElementById("score").textContent = this.score + " points";
+}
+
 Game.prototype.end = function() {
+	this.sounds.death.play();
 	this.gameover = true;
 	clearInterval(this.gameLoop);
 	this.canvas.canvas.style.transition = "all 1s ease-out";
+	this.canvas.canvas.style.MozTransition = "all 1s ease-out";
+	this.canvas.canvas.style.WebkitTransition = "all 1s ease-out";
 	this.canvas.canvas.style.filter = "blur(20px)";
-	document.getElementById("popup-text").textContent = "Game over!";
+	this.canvas.canvas.style.WebkitFilter = "blur(20px)";
+	document.getElementById("score").style.filter = "blur(20px)";
+	document.getElementById("score").style.WebkitFilter = "blur(20px)";
+	document.getElementById("popup-text").innerHTML = "Game over!<br><br><small>Score: " + this.score + "</small>";
 	document.getElementById("popup-text").removeAttribute("class");
 }

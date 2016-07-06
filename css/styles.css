@@ -6,7 +6,7 @@
 
 html, body {
 	height: 100%;
-	background-color: #333;
+	background-color: black;
 }
 
 .error {
@@ -32,6 +32,20 @@ html, body {
 	transition: all .1s ease;
 	-webkit-transition: all .1s ease;
 	-moz-transition: all .1s ease;
+}
+
+#score {
+	position: absolute;
+	float: left;
+	top: 6%;
+	left: 4%;
+	font-size: 20pt;
+	color: #333;
+	text-align: center;
+	z-index: 101;
+	transition: all .5s ease;
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
 }
 
 #popup-text {

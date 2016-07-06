@@ -4,7 +4,7 @@
 var Resources = function(game) {
 	this.game = game;
 	this.droprateModifier = 5;
-	this.maxDrops = 3;
+	this.maxDrops = 5;
 	this.types = [
 		'food',
 		'food',
@@ -69,7 +69,7 @@ Resources.prototype.checkDropExpiration = function() {
 }
 
 Resources.prototype.dropRandom = function() {
-	if (!this.game.paused) {
+	if (!this.game.paused && !this.game.gameover) {
 		if (this.locations.length < this.maxDrops) {
 			var randX = this.getRandomInt(0, this.game.grid.width - 1);
 			var randY = this.getRandomInt(0, this.game.grid.height - 1);
